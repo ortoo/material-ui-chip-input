@@ -239,3 +239,8 @@ storiesOf('ChipInput', module)
       <input type='text' />
     </form>
   ))
+  .add('with custom menu item renderer', () => themed(
+    <ChipInput
+      menuItemRenderer={() => }
+    />
+  ))

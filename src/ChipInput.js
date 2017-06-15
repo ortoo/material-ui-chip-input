@@ -9,8 +9,7 @@ import TextFieldHint from 'material-ui/TextField/TextFieldHint'
 import TextFieldLabel from 'material-ui/TextField/TextFieldLabel'
 import AutoComplete from 'material-ui/AutoComplete/AutoComplete'
 import transitions from 'material-ui/styles/transitions'
-import Chip from 'material-ui/Chip'
-import {blue300} from 'material-ui/styles/colors'
+import defaultChipRenderer from './defaultChipRenderer'
 
 const getStyles = (props, context, state) => {
   const {
@@ -96,18 +95,6 @@ const getStyles = (props, context, state) => {
 
   return styles
 }
-
-const defaultChipRenderer = ({ value, text, isFocused, isDisabled, handleClick, handleRequestDelete, defaultStyle }, key) => (
-  <Chip
-    key={key}
-    style={{ ...defaultStyle, pointerEvents: isDisabled ? 'none' : undefined }}
-    backgroundColor={isFocused ? blue300 : null}
-    onTouchTap={handleClick}
-    onRequestDelete={handleRequestDelete}
-  >
-    {text}
-  </Chip>
-)
 
 class ChipInput extends React.Component {
   static contextTypes = {
@@ -429,6 +416,8 @@ class ChipInput extends React.Component {
       chipRenderer = defaultChipRenderer,
       newChipKeyCodes, // eslint-disable-line no-unused-vars
       allowDuplicates, // eslint-disable-line no-unused-vars
+      autoCompleteItemRenderer,
+      menuItemRenderer,
       ...other
     } = this.props
 
@@ -524,7 +513,7 @@ class ChipInput extends React.Component {
           {...inputProps}
           filter={actualFilter}
           style={inputStyleMerged}
-          dataSource={autoCompleteData}
+          dataSource={autoCompleteData.map(menuItemRenderer || ((item) => item))}
           dataSourceConfig={dataSourceConfig}
           searchText={this.state.inputValue}
           underlineShow={false}
