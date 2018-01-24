@@ -375,6 +375,11 @@ class ChipInput extends React.Component {
     this.input = input
   }
 
+  setActualInputRef = (input) => {
+    this.actualInput = input
+    if (this.props.inputRef) this.props.inputRef(input)
+  }
+
   render () {
     const {
       allowDuplicates, // eslint-disable-line no-unused-vars
@@ -409,6 +414,8 @@ class ChipInput extends React.Component {
       placeholder,
       required,
       rootRef,
+      inputRef,
+      onUpdateInput,
       value,
       ...other
     } = this.props
@@ -482,7 +489,7 @@ class ChipInput extends React.Component {
             onKeyUp={this.handleKeyUp}
             onFocus={this.handleInputFocus}
             onBlur={this.handleInputBlur}
-            inputRef={(ref) => { this.actualInput = ref }}
+            inputRef={this.setActualInputRef}
             disabled={disabled}
             disableUnderline
             fullWidth={fullWidthInput}
@@ -522,7 +529,8 @@ ChipInput.propTypes = {
   clearOnBlur: PropTypes.bool,
   allowDuplicates: PropTypes.bool,
   fullWidth: PropTypes.bool,
-  fullWidthInput: PropTypes.bool
+  fullWidthInput: PropTypes.bool,
+  inputRef: PropTypes.func
 }
 
 ChipInput.defaultProps = {

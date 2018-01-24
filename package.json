@@ -1,5 +1,5 @@
 {
-  "name": "material-ui-chip-input",
+  "name": "@ortoo/material-ui-chip-input",
   "version": "1.0.0-beta.3",
   "description": "A chip input field using Material-UI.",
   "main": "lib/ChipInput.js",
